@@ -17,7 +17,7 @@ A PowerShell script for completely uninstalling Java versions from Windows syste
 
 ## Usage
 
-### Download the latest script from Releases section and run using this command in administrator powershell,
+### Download the latest 'JavaUninstaller.ps1' script from Releases section and then run this command in administrator powershell,
 ```
 .\JavaUninstaller.ps1
 ```
