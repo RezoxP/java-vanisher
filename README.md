@@ -1,6 +1,6 @@
 # Java Uninstaller Script
 
-A PowerShell script for automatically uninstalling Java versions from Windows systems.
+A PowerShell script for completely uninstalling Java versions from Windows systems.
 
 ## Features
 
@@ -17,12 +17,10 @@ A PowerShell script for automatically uninstalling Java versions from Windows sy
 
 ## Usage
 
-### Method 1: Direct Execution (Fastest)
-Open PowerShell as Administrator and run:
-```powershell
-irm https://raw.githubusercontent.com/RezoxP/java-vanisher/main/JavaUninstaller.ps1 | iex
+### Download the latest script from Releases section and run using this command in administrator powershell,
 ```
-
+.\JavaUninstaller.ps1
+```
 
 ## Common Issues and Solutions
 
