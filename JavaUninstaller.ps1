@@ -2,6 +2,13 @@
 # Run this script as Administrator to completely remove Java and all its traces from Windows
 # Compatible with PowerShell 5.1 and 7.x
 
+# Security protocol settings for web requests
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+if (-not [System.Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
+    Write-Error "TLS 1.2 is not supported on this system. Please update PowerShell and .NET Framework."
+    exit 1
+}
+
 # Version check and compatibility settings
 $PSVersionTable.PSVersion | Out-Null
 $script:isPSCore = $PSVersionTable.PSEdition -eq 'Core'
