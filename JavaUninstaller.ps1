@@ -2,27 +2,6 @@
 # Run this script as Administrator to completely remove Java and all its traces from Windows
 # Compatible with PowerShell 5.1 and 7.x
 
-# Security protocol and execution settings
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-# If not running as admin, self-elevate
-$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-if (-not $isAdmin) {
-    try {
-        $scriptContent = if ($MyInvocation.MyCommand.Path) {
-            Get-Content -Path $MyInvocation.MyCommand.Path -Raw
-        } else {
-            $script
-        }
-        
-        Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command $([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($scriptContent)))" -Wait
-        exit
-    }
-    catch {
-        Write-Warning "Failed to elevate privileges. Some features may not work correctly."
-    }
-}
-
 # Version check and compatibility settings
 $PSVersionTable.PSVersion | Out-Null
 $script:isPSCore = $PSVersionTable.PSEdition -eq 'Core'
@@ -536,8 +515,8 @@ try {
     
     # Check for admin privileges
     if (-not (Test-AdminPrivileges)) {
-        # This will only show if self-elevation failed
-        Write-LogMessage "This script requires administrator privileges. Some features may not work correctly." -Type "WARNING"
+        Write-LogMessage "This script requires administrator privileges. Please run as administrator." -Type "ERROR"
+        exit 1
     }
     
     # Find Java installations and traces first
